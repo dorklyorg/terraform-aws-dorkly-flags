@@ -24,10 +24,10 @@ provider "github" {
 }
 
 module "dorkly-flags-backend" {
-  # When using these modules in your own templates, you will need to use a Git URL with a ref attribute that pins you
-  # to a specific version of the modules, such as the following example:
-  # source = "git::git@github.com:hashicorp/terraform-aws-consul.git//modules/consul-cluster?ref=v0.0.1"
-  source = "../../terraform-aws-dorkly-flags"
+  source = "git::git@github.com:dorklyorg/terraform-aws-dorkly-flags.git//?ref=v0.0.1"
+
+  # or for developing locally:
+  #   source = "../../terraform-aws-dorkly-flags"
 
   project_name = "project1"
 }

@@ -1,5 +1,4 @@
 locals {
-  flagArchive = "flags.tar.gz"
   name = "dorkly-${var.project_name}"
   tags = {
     dorkly         = "true"
@@ -20,7 +19,7 @@ resource "aws_lightsail_container_service" "dorkly" {
 resource "aws_lightsail_container_service_deployment_version" "dorkly" {
   container {
     container_name = local.name
-    image          = "drichelson/dorkly:latest"
+    image          = "drichelson/dorkly:${var.dorkly_docker_image_tag}"
 
     command = []
 
