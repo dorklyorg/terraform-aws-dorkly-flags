@@ -11,7 +11,7 @@ data "aws_region" "current" {}
 
 resource "aws_lightsail_container_service" "dorkly" {
   name        = local.name
-  power       = "nano"
+  power       = var.aws_lightsail_container_power
   scale       = 1
   is_disabled = false
   tags        = local.tags
