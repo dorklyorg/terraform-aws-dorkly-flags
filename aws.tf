@@ -89,21 +89,6 @@ resource "aws_s3_bucket" "dorkly_bucket" {
   tags   = local.tags
 }
 
-# data "aws_s3_object" "existing_flag_archive" {
-#   bucket = aws_s3_bucket.dorkly_bucket.bucket
-#   key    = local.flagArchive
-# }
-
-# Upload the flags archive if it doesn't already exist.
-# resource "aws_s3_object" "maybe_upload_flag_archive" {
-#   # uncommenting this will prevent overwriting an existing flag archive. This is useful for re-running terraform on a live system.
-#   #   count  = data.aws_s3_object.existing_flag_archive.body == null ? 1 : 0
-#   bucket = aws_s3_bucket.dorkly_bucket.bucket
-#   key    = local.flagArchive
-#   source = "flags.tar.gz"
-#   acl    = "private"
-# }
-
 # S3 Bucket Notification
 resource "aws_s3_bucket_notification" "dorkly_bucket_notification" {
   bucket = aws_s3_bucket.dorkly_bucket.id
@@ -173,9 +158,11 @@ resource "aws_iam_user_policy" "dorkly_write_user_policy" {
         Effect = "Allow"
         Action = [
           "s3:GetObject",
+          "s3:ListBucket",
           "s3:PutObject"
         ]
         Resource = [
+          aws_s3_bucket.dorkly_bucket.arn,
           "${aws_s3_bucket.dorkly_bucket.arn}/*"
         ]
       }

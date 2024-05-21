@@ -11,6 +11,18 @@ resource "github_actions_variable" "aws_region" {
   value         = data.aws_region.current.name
 }
 
+resource "github_actions_variable" "aws_s3_bucket" {
+  repository    = github_repository.dorkly_repo.name
+  variable_name = "AWS_S3_BUCKET"
+  value         = aws_s3_bucket.dorkly_bucket.bucket
+}
+
+resource "github_actions_variable" "dorkly_version" {
+  repository    = github_repository.dorkly_repo.name
+  variable_name = "DORKLY_VERSION"
+  value         = var.dorkly_version
+}
+
 resource "github_actions_secret" "aws_access_key_id" {
   repository      = github_repository.dorkly_repo.name
   secret_name     = "AWS_ACCESS_KEY_ID"

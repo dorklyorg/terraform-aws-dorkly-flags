@@ -12,7 +12,6 @@ terraform {
   }
 }
 
-
 provider "aws" {
   region = "us-west-2"
 }
@@ -25,12 +24,6 @@ provider "github" {
 }
 
 module "dorkly-flags-example" {
-#   source = "git::git@github.com:dorklyorg/terraform-aws-dorkly-flags.git//?ref=v0.0.1"
-
-  # or for developing locally:
-  source = "../../terraform-aws-dorkly-flags"
-  dorkly_docker_image_tag = "0.0.1"
-  dorkly_version = "main"
-
-  project_name = "project1"
+  source       = "git::git@github.com:dorklyorg/terraform-aws-dorkly-flags.git//?ref=v0.0.1"
+  project_name = "example-main"
 }

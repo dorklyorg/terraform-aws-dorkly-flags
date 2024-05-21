@@ -11,12 +11,6 @@ variable "aws_lightsail_container_power" {
   default     = "nano"
 }
 
-variable "dorkly_docker_image_tag" {
-  type        = string
-  default     = "latest"
-  description = "The docker image tag to use for the dorkly service"
-}
-
 variable "github_repo_description" {
   type        = string
   description = "The description of the project that will utilize feature flags. This will be used as the description of the github repository"
@@ -27,5 +21,18 @@ variable "github_repo_private" {
   type        = bool
   description = "Whether the github repository should be private or public. You probably want this to be private"
   default     = true
+}
+
+# More optional vars that you should probably only change if you know what you're doing:
+variable "dorkly_docker_image_tag" {
+  type        = string
+  default     = "0.0.1"
+  description = "The docker image tag to use for the dorkly service. See https://hub.docker.com/r/drichelson/dorkly/tags for available tags."
+}
+
+variable "dorkly_version" {
+  type        = string
+  default     = "v0.0.1"
+  description = "The version of the dorkly binary to use. This can be any valid git tag, branch, or commit hash from https://github.com/dorklyorg/dorkly"
 }
 
