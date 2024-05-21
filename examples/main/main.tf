@@ -24,6 +24,6 @@ provider "github" {
 }
 
 module "dorkly-flags-example" {
-  source       = "git::git@github.com:dorklyorg/terraform-aws-dorkly-flags.git//?ref=v0.0.1"
+  source       = "git::git@github.com:dorklyorg/terraform-aws-dorkly-flags.git//?ref=v0.0.2"
   project_name = "example-main"
 }
