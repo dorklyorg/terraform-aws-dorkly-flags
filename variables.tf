@@ -2,6 +2,8 @@
 variable "project_name" {
   type        = string
   description = "Brief name of your project that will utilize feature flags. AWS resources will use this and the github repo's name will be based on this value: dorkly-flags-<project_name>"
+  # TODO: validate that this is only contains characters suitable for aws resources and github repo names
+  # TODO: validate max length
 }
 
 variable "project_description" {
@@ -14,6 +16,8 @@ variable "environments" {
   type        = set(string)
   description = "The environments that you want to create feature flags for."
   default     = ["dev", "prod"]
+  # TODO: validate that this is only contains characters suitable for aws resources and github repo names
+  # TODO: validate max length
 }
 
 # Optional vars:
@@ -21,6 +25,7 @@ variable "aws_lightsail_container_power" {
   type        = string
   description = "The power of the lightsail container service. Options are nano, micro, small, medium, large, xlarge"
   default     = "nano"
+  # TODO: validate that this is one of the valid options
 }
 
 variable "github_repo_description" {

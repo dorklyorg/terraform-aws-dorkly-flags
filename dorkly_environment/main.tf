@@ -1,10 +1,24 @@
+terraform {
+  required_version = ">= 1.5"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 5.50"
+    }
+    github = {
+      source  = "integrations/github"
+      version = ">= 6.0"
+    }
+  }
+}
+
 locals {
   name_prefix = "dorkly-${var.project_name}-${var.env_name}"
 }
 
 # aws resources
 resource "aws_secretsmanager_secret" "dorkly_sdk_key_secret" {
-  name = "${local.name_prefix}-sdk"
+  name = "${local.name_prefix}-sdk-key"
   tags = var.aws_tags
 }
 
@@ -21,7 +35,7 @@ resource "aws_secretsmanager_secret_version" "dorkly_sdk_key_secret_version" {
 }
 
 resource "aws_secretsmanager_secret" "dorkly_mobile_key_secret" {
-  name = "${local.name_prefix}-mob"
+  name = "${local.name_prefix}-mob-key"
   tags = var.aws_tags
 }
 

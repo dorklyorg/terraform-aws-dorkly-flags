@@ -44,7 +44,7 @@ resource "github_repository_file" "dorkly_flags_project_yml" {
   file                = "project/project.yml"
   content             = <<-EOF
                         ${local.tf_yaml_comment}
-                        key: ${var.project_name}
+                        name: ${var.project_name}
                         description: ${var.project_description}
                         EOF
   commit_message      = "Managed by Terraform"
