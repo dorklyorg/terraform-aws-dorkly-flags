@@ -1,3 +1,7 @@
+locals {
+  tf_yaml_comment = "# Managed by Terraform! Do not edit. Any changed made by humans will be overwritten."
+}
+
 resource "github_repository" "dorkly_repo" {
   name        = "dorkly-flags-${var.project_name}"
   description = var.github_repo_description
@@ -35,11 +39,22 @@ resource "github_actions_secret" "aws_secret_key_secret" {
   plaintext_value = aws_iam_access_key.dorkly_write_user_access_key.secret
 }
 
+resource "github_repository_file" "dorkly_flags_project_yml" {
+  repository          = github_repository.dorkly_repo.name
+  file                = "project/project.yml"
+  content             = <<-EOF
+                        ${local.tf_yaml_comment}
+                        key: ${var.project_name}
+                        description: ${var.project_description}
+                        EOF
+  commit_message      = "Managed by Terraform"
+  overwrite_on_create = true
+}
+
 # Upload each file to the repo using the same relative path from 'githubFiles/'
-resource "github_repository_file" "dorkly_flags_project" {
+resource "github_repository_file" "dorkly_flags_files" {
   for_each            = fileset("${path.module}/githubFiles", "**")
   repository          = github_repository.dorkly_repo.name
-  branch              = "main"
   file                = each.key
   content             = file("${path.module}/githubFiles/${each.key}")
   commit_message      = "Managed by Terraform"

@@ -11,3 +11,11 @@ terraform {
     }
   }
 }
+
+module "dorkly_environment" {
+  for_each     = var.environments
+  source       = "./dorkly_environment"
+  project_name = var.project_name
+  env_name     = each.key
+  github_repo  = github_repository.dorkly_repo.name
+}
