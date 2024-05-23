@@ -1,7 +1,7 @@
 ## terraform-aws-dorkly-flags
 Terraform module for provisiononing the Dorkly Feature Flags infrastructure on AWS and GitHub.
 [More info on the Dorkly project](https://github.com/dorklyorg/dorkly)
-
+[Terraform Registry page](https://registry.terraform.io/modules/dorklyorg/dorkly-flags/aws/latest)
 
 ## Note on GitHub Repo ownership
 If you're wanting the owner of the Dorkly flags GitHub repo to be a user, then you can ignore this section.
