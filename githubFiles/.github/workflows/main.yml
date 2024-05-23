@@ -34,5 +34,8 @@ jobs:
       with:
         go-version: '1.22.2'
 
+    - name: Build go binary
+      run: go install github.com/dorklyorg/dorkly/cmd/dorkly@${{ vars.DORKLY_VERSION }}
+
     - name: Process flag changes and upsert to S3
-      run: go run github.com/dorklyorg/dorkly/cmd/dorkly@${{ vars.DORKLY_VERSION }}
+      run: dorkly
