@@ -17,6 +17,5 @@ variable "github_repo" {
 variable "aws_tags" {
   type        = map(string)
   description = "Tags to apply to all AWS resources created by this module."
-  default = {}
-
+  default     = {}
 }

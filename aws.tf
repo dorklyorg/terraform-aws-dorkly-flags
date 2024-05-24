@@ -26,7 +26,7 @@ resource "aws_lightsail_container_service_deployment_version" "dorkly" {
     environment = {
       AWS_REGION    = data.aws_region.current.name
       SQS_QUEUE_URL = aws_sqs_queue.dorkly_queue.url
-      S3_URL = "s3://${aws_s3_bucket.dorkly_bucket.bucket}/flags.tar.gz"
+      S3_URL        = "s3://${aws_s3_bucket.dorkly_bucket.bucket}/flags.tar.gz"
 
       # TODO: can we use role permissions instead of access keys?
       AWS_ACCESS_KEY_ID     = aws_iam_access_key.dorkly_read_user_access_key.id
@@ -57,9 +57,9 @@ resource "aws_lightsail_container_service_deployment_version" "dorkly" {
 
 # SQS Queue
 resource "aws_sqs_queue" "dorkly_queue" {
-  name   = local.name
+  name = local.name
   policy = jsonencode({
-    Version   = "2012-10-17"
+    Version = "2012-10-17"
     Statement = [
       {
         Effect = "Allow"
@@ -118,7 +118,7 @@ resource "aws_iam_user_policy" "dorkly_read_user_policy" {
   user = aws_iam_user.dorkly_read_user.name
 
   policy = jsonencode({
-    Version   = "2012-10-17"
+    Version = "2012-10-17"
     Statement = [
       {
         Effect = "Allow"
@@ -152,7 +152,7 @@ resource "aws_iam_user_policy" "dorkly_write_user_policy" {
   user = aws_iam_user.dorkly_write_user.name
 
   policy = jsonencode({
-    Version   = "2012-10-17"
+    Version = "2012-10-17"
     Statement = [
       {
         Effect = "Allow"
@@ -165,6 +165,24 @@ resource "aws_iam_user_policy" "dorkly_write_user_policy" {
           aws_s3_bucket.dorkly_bucket.arn,
           "${aws_s3_bucket.dorkly_bucket.arn}/*"
         ]
+      },
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "secretsmanager:GetResourcePolicy",
+          "secretsmanager:GetSecretValue",
+          "secretsmanager:DescribeSecret",
+          "secretsmanager:ListSecretVersionIds"
+        ],
+        "Resource" : concat(
+          [for e in module.dorkly_environment : e.aws_secrets_manager_secret_dorkly_sdk_key_secret_arn],
+          [for e in module.dorkly_environment : e.aws_secrets_manager_secret_dorkly_mobile_key_secret_arn],
+        )
+      },
+      {
+        "Effect" : "Allow",
+        "Action" : "secretsmanager:ListSecrets",
+        "Resource" : "*"
       }
     ]
   })
