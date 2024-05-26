@@ -1,25 +1,16 @@
-output "aws_secrets_manager_secret_dorkly_sdk_key_secret_arn" {
-  value = aws_secretsmanager_secret.dorkly_sdk_key_secret.arn
+output "env" {
+  value = tomap({
+    "env_name" : var.env_name,
+    "project_name" : var.project_name,
+    "github_repo" : var.github_repo,
+
+    "aws_secret_sdk_key_arn" : aws_secretsmanager_secret.dorkly_sdk_key_secret.arn,
+    "aws_secret_sdk_key_name" : aws_secretsmanager_secret.dorkly_sdk_key_secret.name,
+    "aws_secret_sdk_key_value" : aws_secretsmanager_secret_version.dorkly_sdk_key_secret_version.secret_string,
+
+    "aws_secret_mobile_key_arn" : aws_secretsmanager_secret.dorkly_mobile_key_secret.arn,
+    "aws_secret_mobile_key_name" : aws_secretsmanager_secret.dorkly_mobile_key_secret.name,
+    "aws_secret_mobile_key_value" : aws_secretsmanager_secret_version.dorkly_mobile_key_secret_version.secret_string,
+    }
+  )
 }
-
-output "aws_secrets_manager_secret_dorkly_sdk_key_secret_name" {
-  value = aws_secretsmanager_secret.dorkly_sdk_key_secret.name
-}
-
-output "aws_secrets_manager_secret_dorkly_sdk_key_secret_value" {
-  value = aws_secretsmanager_secret_version.dorkly_sdk_key_secret_version.secret_string
-}
-
-output "aws_secrets_manager_secret_dorkly_mobile_key_secret_arn" {
-  value = aws_secretsmanager_secret.dorkly_mobile_key_secret.arn
-}
-
-output "aws_secrets_manager_secret_dorkly_mobile_key_secret_name" {
-  value = aws_secretsmanager_secret.dorkly_mobile_key_secret.name
-}
-
-output "aws_secrets_manager_secret_dorkly_mobile_key_secret_value" {
-  value = aws_secretsmanager_secret_version.dorkly_mobile_key_secret_version.secret_string
-}
-
-

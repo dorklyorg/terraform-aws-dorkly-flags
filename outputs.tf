@@ -10,6 +10,10 @@ output "github_repo_git_clone_url" {
   value = github_repository.dorkly_repo.git_clone_url
 }
 
+output "environments" {
+  value = module.dorkly_environment
+}
+
 # These shouldn't be needed for daily use but can be helpful when troubleshooting:
 output "aws_s3_bucket_name" {
   value = aws_s3_bucket.dorkly_bucket.bucket

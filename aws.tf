@@ -175,8 +175,8 @@ resource "aws_iam_user_policy" "dorkly_write_user_policy" {
           "secretsmanager:ListSecretVersionIds"
         ],
         "Resource" : concat(
-          [for e in module.dorkly_environment : e.aws_secrets_manager_secret_dorkly_sdk_key_secret_arn],
-          [for e in module.dorkly_environment : e.aws_secrets_manager_secret_dorkly_mobile_key_secret_arn],
+          [for e in module.dorkly_environment : e.env.aws_secret_sdk_key_arn],
+          [for e in module.dorkly_environment : e.env.aws_secret_mobile_key_arn],
         )
       },
       {

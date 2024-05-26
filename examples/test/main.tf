@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.5"
+  required_version = ">= 1.8"
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -26,7 +26,24 @@ provider "github" {
 module "dorkly-flags-example" {
   source                  = "../../../terraform-aws-dorkly-flags"
   dorkly_docker_image_tag = "0.0.3"
-  dorkly_version          = "main"
+  dorkly_version          = "v0.0.3"
 
-  project_name = "example-dev"
+  project_name = "example-test"
+}
+
+output "ld_sdk_endpoint" {
+  value = module.dorkly-flags-example.ld_sdk_endpoint
+}
+
+output "github_repo_html_url" {
+  value = module.dorkly-flags-example.github_repo_html_url
+}
+
+output "github_repo_git_clone_url" {
+  value = module.dorkly-flags-example.github_repo_git_clone_url
+}
+
+output "environments" {
+  value     = module.dorkly-flags-example.environments
+  sensitive = true
 }
