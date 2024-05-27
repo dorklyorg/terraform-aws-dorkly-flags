@@ -89,14 +89,14 @@ Check out the LaunchDarkly [hello-go example](https://github.com/launchdarkly/he
 * SDK Key value: `${module.dorkly_environment[each.key].env.aws_secret_sdk_key_value}`
 * AWS secret arn: `${module.dorkly_environment[each.key].env.aws_secret_sdk_key_arn}`
 * AWS secret name: `${module.dorkly_environment[each.key].env.aws_secret_sdk_key_name}`
-* AWS: Get secret via cli: `aws secretsmanager get-secret-value --secret-id ${module.dorkly_environment[each.key].env.aws_secret_sdk_key_name}  | jq -r .SecretString
+* AWS: Get secret via cli: `aws secretsmanager get-secret-value --secret-id ${module.dorkly_environment[each.key].env.aws_secret_sdk_key_name}  | jq -r .SecretString`
 * Terraform: Inject secret for use in your deployed service:
 
 ### Mobile Key
 * Mobile Key value: `${module.dorkly_environment[each.key].env.aws_secret_mobile_key_value}`
 * Aws secret arn: `${module.dorkly_environment[each.key].env.aws_secret_mobile_key_arn}`
 * Aws secret name: `${module.dorkly_environment[each.key].env.aws_secret_mobile_key_name}`
-* Get secret using aws cli: `aws secretsmanager get-secret-value --secret-id ${module.dorkly_environment[each.key].env.aws_secret_mobile_key_name}  | jq -r .SecretString
+* Get secret using aws cli: `aws secretsmanager get-secret-value --secret-id ${module.dorkly_environment[each.key].env.aws_secret_mobile_key_name}  | jq -r .SecretString`
 EOF
   commit_message      = "Managed by Terraform"
   overwrite_on_create = true

@@ -27,6 +27,7 @@ resource "aws_lightsail_container_service_deployment_version" "dorkly" {
       AWS_REGION    = data.aws_region.current.name
       SQS_QUEUE_URL = aws_sqs_queue.dorkly_queue.url
       S3_URL        = "s3://${aws_s3_bucket.dorkly_bucket.bucket}/flags.tar.gz"
+      LOG_LEVEL     = var.ld_relay_log_level
 
       # TODO: can we use role permissions instead of access keys?
       AWS_ACCESS_KEY_ID     = aws_iam_access_key.dorkly_read_user_access_key.id

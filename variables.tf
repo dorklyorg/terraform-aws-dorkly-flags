@@ -3,7 +3,7 @@ variable "project_name" {
   type        = string
   description = "Brief name of your project that will utilize feature flags. AWS resources will use this and the github repo's name will be based on this value: dorkly-flags-<project_name>"
   # TODO: validate that this is only contains characters suitable for aws resources and github repo names
-  # TODO: validate max length
+  # TODO: validate max length?
 }
 
 variable "project_description" {
@@ -23,8 +23,15 @@ variable "environments" {
 # Optional vars:
 variable "aws_lightsail_container_power" {
   type        = string
-  description = "The power of the lightsail container service. Options are nano, micro, small, medium, large, xlarge"
+  description = "The power of the lightsail container service running ld-relay. Options are nano, micro, small, medium, large, xlarge"
   default     = "nano"
+  # TODO: validate that this is one of the valid options
+}
+
+variable "ld_relay_log_level" {
+  type        = string
+  description = "The log level for the LaunchDarkly relay. It must match one of the level names 'debug', 'info', 'warn', or 'error' (case-insensitive)."
+  default     = "info"
   # TODO: validate that this is one of the valid options
 }
 
