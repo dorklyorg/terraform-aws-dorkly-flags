@@ -1,4 +1,5 @@
 # Managed by Terraform! Do not edit. Any changed made by humans will be overwritten.
 type: booleanRollout
 description: "Human-readable description of the flag."
-serverSideOnly: false
+enableBrowser: true
+enableMobileKey: true

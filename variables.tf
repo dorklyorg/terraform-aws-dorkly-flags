@@ -13,12 +13,26 @@ variable "project_description" {
 }
 
 variable "environments" {
-  type        = set(string)
-  description = "The environments that you want to create feature flags for."
-  default     = ["dev", "prod"]
-  # TODO: validate that this is only contains characters suitable for aws resources and github repo names
-  # TODO: validate max length
+  type = map(object({
+    name         = string
+    description  = string
+    isProduction = bool
+  }))
+  description = "The set of environments to create. Fields include: name, description, and isProduction"
+  default = {
+    "dev" = {
+      name         = "dev"
+      description  = "Development environment"
+      isProduction = false
+    },
+    "prod" = {
+      name         = "prod"
+      description  = "Production environment"
+      isProduction = true
+    }
+  }
 }
+
 
 # Optional vars:
 variable "aws_lightsail_container_power" {
@@ -50,7 +64,7 @@ variable "github_repo_private" {
 # More optional vars that you should probably only change if you know what you're doing:
 variable "dorkly_docker_image_tag" {
   type        = string
-  default     = "0.0.3"
+  default     = "0.0.4"
   description = "The docker image tag to use for the dorkly backend sservice. See https://hub.docker.com/r/drichelson/dorkly/tags for available tags."
 }
 

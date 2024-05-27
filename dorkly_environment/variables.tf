@@ -4,9 +4,12 @@ variable "project_name" {
   description = "Name of the project. This will be used in various aws resource names so keep it short and sweet."
 }
 
-variable "env_name" {
-  type        = string
-  description = "Name of the environment. This will be used in various aws resource names so keep it short and sweet."
+variable "env" {
+  type        = object({
+    name         = string
+    description  = string
+    isProduction = bool
+  })
 }
 
 variable "github_repo" {

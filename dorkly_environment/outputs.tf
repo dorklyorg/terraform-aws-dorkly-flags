@@ -1,6 +1,6 @@
 output "env" {
   value = tomap({
-    "env_name" : var.env_name,
+    "env_name" : var.env.name,
     "project_name" : var.project_name,
     "github_repo" : var.github_repo,
 

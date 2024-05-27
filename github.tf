@@ -47,7 +47,7 @@ resource "github_repository_file" "dorkly_flags_project_yml" {
                         name: ${var.project_name}
                         description: ${var.project_description}
                         EOF
-  commit_message      = "Managed by Terraform"
+  commit_message      = "terraform robot: project/project.yml"
   overwrite_on_create = true
 }
 
@@ -57,7 +57,7 @@ resource "github_repository_file" "dorkly_flags_files" {
   repository          = github_repository.dorkly_repo.name
   file                = each.key
   content             = file("${path.module}/githubFiles/${each.key}")
-  commit_message      = "Managed by Terraform"
+  commit_message      = "terraform robot: ${each.key}"
   overwrite_on_create = true
 }
 
@@ -90,15 +90,10 @@ Check out the LaunchDarkly [hello-go example](https://github.com/launchdarkly/he
 * AWS secret arn: `${module.dorkly_environment[each.key].env.aws_secret_sdk_key_arn}`
 * AWS secret name: `${module.dorkly_environment[each.key].env.aws_secret_sdk_key_name}`
 * AWS: Get secret via cli: `aws secretsmanager get-secret-value --secret-id ${module.dorkly_environment[each.key].env.aws_secret_sdk_key_name}  | jq -r .SecretString`
-* Terraform: Inject secret for use in your deployed service:
+* All the values above are also exported as terraform outputs
 
-### Mobile Key
-* Mobile Key value: `${module.dorkly_environment[each.key].env.aws_secret_mobile_key_value}`
-* Aws secret arn: `${module.dorkly_environment[each.key].env.aws_secret_mobile_key_arn}`
-* Aws secret name: `${module.dorkly_environment[each.key].env.aws_secret_mobile_key_name}`
-* Get secret using aws cli: `aws secretsmanager get-secret-value --secret-id ${module.dorkly_environment[each.key].env.aws_secret_mobile_key_name}  | jq -r .SecretString`
 EOF
-  commit_message      = "Managed by Terraform"
+  commit_message      = "terraform robot: project/environments/${each.key}/readme.md"
   overwrite_on_create = true
 }
 
