@@ -26,10 +26,12 @@ provider "github" {
 module "dorkly-flags-example" {
   source       = "git::git@github.com:dorklyorg/terraform-aws-dorkly-flags.git//?ref=v0.0.3"
   project_name = "example-main"
-  environments = ["dev-billy", "ci", "prod"]
+
+  # for demo purposes only. You should probably set this to true.
+  github_repo_private = false
 }
 
-# If you're fully invested in Terraform you'll want to inject the outputs of this module into the Terraform code that provisions your feature-flagged apps:
+# You'll want to inject the outputs of this module into the Terraform code that provisions your feature-flagged apps:
 # For all LaunchDarkly SDKs you'll need to provide this endpoint:
 output "ld_sdk_endpoint" {
   value = module.dorkly-flags-example.ld_sdk_endpoint

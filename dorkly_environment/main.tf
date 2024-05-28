@@ -69,7 +69,7 @@ resource "github_repository_file" "dorkly_flags_project" {
 
 resource "github_repository_file" "dorkly_flags_readme" {
   repository          = var.github_repo
-  file                = "project/environments/${var.env.name}/readme.md"
+  file                = "project/environments/${var.env.name}/README.md"
   content             = <<EOF
 # Dorkly Flags for project: ${var.project_name} environment: ${var.env.name}
 ### This file is managed by terraform. Do not edit manually.
@@ -108,6 +108,6 @@ All values below and others are available as terraform outputs for easy wiring i
 * Get secret using aws cli: `aws secretsmanager get-secret-value --secret-id ${aws_secretsmanager_secret.dorkly_mobile_key_secret.name}  | jq -r .SecretString`
 
 EOF
-  commit_message      = "terraform robot: project/environments/${var.env.name}/readme.md"
+  commit_message      = "terraform robot: project/environments/${var.env.name}/README.md"
   overwrite_on_create = true
 }

@@ -1,5 +1,6 @@
 locals {
-  tf_yaml_comment = "# Managed by Terraform! Do not edit. Any changed made by humans will be overwritten."
+  tf_yaml_comment       = "# Managed by Terraform! Do not edit. Any changed made by humans will be overwritten."
+  environments_markdown = join("", [for k, v in module.dorkly_environment : v.env.markdown_summary])
 }
 
 resource "github_repository" "dorkly_repo" {
@@ -60,48 +61,21 @@ resource "github_repository_file" "dorkly_flags_files" {
   commit_message      = "terraform robot: ${each.key}"
   overwrite_on_create = true
 }
-#
-# resource "github_repository_file" "dorkly_flags_readme" {
-#   for_each = var.environments
-#
-#   repository          = github_repository.dorkly_repo.name
-#   file                = "project/environments/${each.key}/readme.md"
-#   content             = <<EOF
-# # Dorkly Flags for project: ${var.project_name} environment: ${each.key}
-# ### This file is managed by terraform. Do not edit manually.
-#
-# Dorkly endpoint for this environment: `${aws_lightsail_container_service.dorkly.url}`
-#
-# ## Quick Start: Configuring an SDK
-# Check out the LaunchDarkly [hello-go example](https://github.com/launchdarkly/hello-go) and modify the config as follows:
-#
-# ```golang
-#     dorklyConfig := ld.Config{
-# 		ServiceEndpoints: ldcomponents.RelayProxyEndpoints("${aws_lightsail_container_service.dorkly.url}"),
-# 		Events:           ldcomponents.NoEvents(),
-# 	}
-#
-# 	ldClient, err := ld.MakeCustomClient("${module.dorkly_environment[each.key].env.aws_secret_sdk_key_value}", dorklyConfig, 10*time.Second)
-# ```
-#
-# ## Other handy bits
-# ### SDK Key
-# These values are available as terraform outputs
-# * SDK Key value: `${module.dorkly_environment[each.key].env.aws_secret_sdk_key_value}`
-# * AWS secret arn: `${module.dorkly_environment[each.key].env.aws_secret_sdk_key_arn}`
-# * AWS secret name: `${module.dorkly_environment[each.key].env.aws_secret_sdk_key_name}`
-# * AWS: Get secret via cli: `aws secretsmanager get-secret-value --secret-id ${module.dorkly_environment[each.key].env.aws_secret_sdk_key_name}  | jq -r .SecretString`
-#
-# ### Mobile Key
-# These values are available as terraform outputs
-# * Mobile Key value: `${module.dorkly_environment[each.key].env.aws_secret_mobile_key_value}`
-# * Aws secret arn: `${module.dorkly_environment[each.key].env.aws_secret_mobile_key_arn}`
-# * Aws secret name: `${module.dorkly_environment[each.key].env.aws_secret_mobile_key_name}`
-# * Get secret using aws cli: `aws secretsmanager get-secret-value --secret-id ${module.dorkly_environment[each.key].env.aws_secret_mobile_key_name}  | jq -r .SecretString`
-#
-# EOF
-#   commit_message      = "terraform robot: project/environments/${each.key}/readme.md"
-#   overwrite_on_create = true
-# }
+
+resource "github_repository_file" "dorkly_flags_readme" {
+  repository          = github_repository.dorkly_repo.name
+  file                = "README.md"
+  content             = <<EOF
+# Dorkly Flags for project: ${var.project_name}
+### This file is managed by terraform. Do not edit manually.
+
+Dorkly endpoint for this environment: `${aws_lightsail_container_service.dorkly.url}`
+
+## Environments
+${local.environments_markdown}
+EOF
+  commit_message      = "terraform robot: README.md"
+  overwrite_on_create = true
+}
 
 

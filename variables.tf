@@ -64,13 +64,13 @@ variable "github_repo_private" {
 # More optional vars that you should probably only change if you know what you're doing:
 variable "dorkly_docker_image_tag" {
   type        = string
-  default     = "0.0.4"
+  default     = "0.0.7"
   description = "The docker image tag to use for the dorkly backend sservice. See https://hub.docker.com/r/drichelson/dorkly/tags for available tags."
 }
 
 variable "dorkly_version" {
   type        = string
-  default     = "v0.0.1"
+  default     = "v0.0.7"
   description = "The version of the dorkly binary to use. This can be any valid git tag, branch, or commit hash from https://github.com/dorklyorg/dorkly"
 }
 
