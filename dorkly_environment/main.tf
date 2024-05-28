@@ -17,8 +17,8 @@ terraform {
 }
 
 locals {
-  name_prefix = "dorkly-${var.project_name}-${var.env.name}"
-  sdk_key_display = var.env.isProduction ? "(Production environment detected. Retrieve sdk key from AWS secrets manager or terraform output)" : aws_secretsmanager_secret_version.dorkly_sdk_key_secret_version.secret_string
+  name_prefix        = "dorkly-${var.project_name}-${var.env.name}"
+  sdk_key_display    = var.env.isProduction ? "(Production environment detected. Retrieve sdk key from AWS secrets manager or terraform output)" : aws_secretsmanager_secret_version.dorkly_sdk_key_secret_version.secret_string
   mobile_key_display = var.env.isProduction ? "(Production environment detected. Retrieve mobile key from AWS secrets manager or terraform output)" : aws_secretsmanager_secret_version.dorkly_mobile_key_secret_version.secret_string
 }
 
