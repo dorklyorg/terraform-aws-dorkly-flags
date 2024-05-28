@@ -13,9 +13,10 @@ terraform {
 }
 
 module "dorkly_environment" {
-  for_each     = var.environments
-  source       = "./dorkly_environment"
-  project_name = var.project_name
-  env          = each.value
-  github_repo  = github_repository.dorkly_repo.name
+  for_each        = var.environments
+  source          = "./dorkly_environment"
+  project_name    = var.project_name
+  env             = each.value
+  github_repo     = github_repository.dorkly_repo.name
+  ld_sdk_endpoint = aws_lightsail_container_service.dorkly.url
 }

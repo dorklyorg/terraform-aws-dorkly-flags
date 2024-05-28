@@ -1,11 +1,15 @@
-# Required vars
 variable "project_name" {
   type        = string
   description = "Name of the project. This will be used in various aws resource names so keep it short and sweet."
 }
 
+variable "ld_sdk_endpoint" {
+  type        = string
+  description = "The LaunchDarkly SDK endpoint to connect to. Used to populate readme templates"
+}
+
 variable "env" {
-  type        = object({
+  type = object({
     name         = string
     description  = string
     isProduction = bool

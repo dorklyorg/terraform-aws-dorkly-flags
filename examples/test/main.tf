@@ -28,8 +28,8 @@ module "dorkly-flags-example" {
   dorkly_docker_image_tag = "0.0.4"
   dorkly_version          = "2970a65ae42829b270b7d4354dfa8bdd89f418f9"
 
-  project_name = "example-test"
-  ld_relay_log_level    = "debug"
+  project_name       = "example-test"
+  ld_relay_log_level = "debug"
 }
 
 output "ld_sdk_endpoint" {

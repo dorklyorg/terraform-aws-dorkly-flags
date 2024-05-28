@@ -41,7 +41,7 @@ output "ld_sdk_endpoint" {
 # 1. Use the value directly from the output and inject it as an env var in your app for use by the LaunchDarkly SDK
 # module.<your name for this module>.environments["<your env name>"].env.aws_secret_sdk_key_value
 #
-# 2. (More secure) Grab the secret from AWS Secrets Manager using one of the following outputs:
+# 2. (More secure?) Grab the secret from AWS Secrets Manager using one of the following outputs:
 # a. ARN: module.<your name for this module>.environments["<your env name>"].env.aws_secret_sdk_key_arn
 # b. Name: module.<your name for this module>.environments["<your env name>"].env.aws_secret_sdk_key_name
 
