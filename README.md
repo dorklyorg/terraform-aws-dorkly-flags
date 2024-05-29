@@ -1,9 +1,10 @@
 ## terraform-aws-dorkly-flags
 Terraform module for provisiononing the Dorkly Feature Flags infrastructure on AWS and GitHub.
-[More info on the Dorkly project](https://github.com/dorklyorg/dorkly)
+[More info on the Dorkly project](https://github.com/dorklyorg)
 [Terraform Registry page](https://registry.terraform.io/modules/dorklyorg/dorkly-flags/aws/latest)
 
-## Note on GitHub Repo ownership
+## Notes on using this module
+### On GitHub Repo ownership
 If you're wanting the owner of the Dorkly flags GitHub repo to be a user, then you can ignore this section.
 
 If you're wanting the owner of the GitHub repo to be an organization, then you probably need to set the `GITHUB_OWNER` environment variable to the name of the organization.
