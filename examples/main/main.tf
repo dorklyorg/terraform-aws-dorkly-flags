@@ -24,8 +24,8 @@ provider "github" {
 }
 
 module "dorkly-flags-example" {
-  source       = "git::git@github.com:dorklyorg/terraform-aws-dorkly-flags.git//?ref=v0.0.3"
-  project_name = "example-main"
+  source       = "git::git@github.com:dorklyorg/terraform-aws-dorkly-flags.git//?ref=v0.0.4"
+  project_name = "example"
 
   # for demo purposes only. You should probably set this to true.
   github_repo_private = false
