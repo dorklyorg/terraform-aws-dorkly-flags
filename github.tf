@@ -68,6 +68,7 @@ resource "github_repository_file" "dorkly_flags_readme" {
   content             = <<EOF
 # Dorkly Flags for project: ${var.project_name}
 ### This file is managed by terraform. Do not edit manually.
+[Documentation](https://github.com/dorklyorg)
 
 Dorkly endpoint for this environment: `${aws_lightsail_container_service.dorkly.url}`
 

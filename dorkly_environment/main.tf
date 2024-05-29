@@ -75,7 +75,8 @@ resource "github_repository_file" "dorkly_flags_readme" {
 ## Description for ${var.env.name} environment
 ${var.env.description}
 
-## Quick Start: Configuring an SDK
+## Quick Start
+### Configuring a backend SDK
 Check out the LaunchDarkly [hello-go example](https://github.com/launchdarkly/hello-go) and modify the config as follows:
 
 ```golang
@@ -85,6 +86,26 @@ Check out the LaunchDarkly [hello-go example](https://github.com/launchdarkly/he
 	}
 
 	ldClient, err := ld.MakeCustomClient("${aws_secretsmanager_secret_version.dorkly_sdk_key_secret_version.secret_string}", dorklyConfig, 10*time.Second)
+```
+
+### Configuring a frontend SDK
+Check out the LaunchDarkly [hello-js example](https://github.com/launchdarkly/hello-js) and modify the config as follows:
+```javascript
+      // Set clientSideID to your environment name
+      const clientSideID = '${var.env.name}';
+
+      // Set up the evaluation context.
+      const context = {
+        kind: 'user',
+        key: 'example-user-key',
+      };
+
+      const options = {
+        baseUrl: '${var.ld_sdk_endpoint}'
+        streamUrl: '${var.ld_sdk_endpoint}',
+        sendEvents: false, };
+
+      const ldclient = LDClient.initialize(clientSideID, context, options);
 ```
 
 ## Other handy bits
