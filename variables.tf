@@ -14,21 +14,18 @@ variable "project_description" {
 
 variable "environments" {
   type = map(object({
-    name         = string
-    description  = string
-    isProduction = bool
+    name        = string
+    description = string
   }))
-  description = "The set of environments to create. Fields include: name, description, and isProduction"
+  description = "The set of environments to create. Fields include: name, description"
   default = {
     "dev" = {
-      name         = "dev"
-      description  = "Development environment"
-      isProduction = false
+      name        = "dev"
+      description = "Development environment"
     },
     "prod" = {
-      name         = "prod"
-      description  = "Production environment"
-      isProduction = true
+      name        = "prod"
+      description = "Production environment"
     }
   }
 }

@@ -10,9 +10,8 @@ variable "ld_sdk_endpoint" {
 
 variable "env" {
   type = object({
-    name         = string
-    description  = string
-    isProduction = bool
+    name        = string
+    description = string
   })
 }
 

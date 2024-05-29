@@ -17,9 +17,7 @@ terraform {
 }
 
 locals {
-  name_prefix        = "dorkly-${var.project_name}-${var.env.name}"
-  sdk_key_display    = var.env.isProduction ? "(Production environment detected. Retrieve sdk key from AWS secrets manager or terraform output)" : aws_secretsmanager_secret_version.dorkly_sdk_key_secret_version.secret_string
-  mobile_key_display = var.env.isProduction ? "(Production environment detected. Retrieve mobile key from AWS secrets manager or terraform output)" : aws_secretsmanager_secret_version.dorkly_mobile_key_secret_version.secret_string
+  name_prefix = "dorkly-${var.project_name}-${var.env.name}"
 }
 
 # aws resources
@@ -86,7 +84,7 @@ Check out the LaunchDarkly [hello-go example](https://github.com/launchdarkly/he
 		Events:           ldcomponents.NoEvents(),
 	}
 
-	ldClient, err := ld.MakeCustomClient("${local.sdk_key_display}", dorklyConfig, 10*time.Second)
+	ldClient, err := ld.MakeCustomClient("${aws_secretsmanager_secret_version.dorkly_sdk_key_secret_version.secret_string}", dorklyConfig, 10*time.Second)
 ```
 
 ## Other handy bits
@@ -96,13 +94,13 @@ All values below and others are available as terraform outputs for easy wiring i
 * client-side id: `${var.env.name}`
 
 ### SDK Key
-* SDK Key value: `${local.sdk_key_display}`
+* SDK Key value: `${aws_secretsmanager_secret_version.dorkly_sdk_key_secret_version.secret_string}`
 * AWS secret arn: `${aws_secretsmanager_secret_version.dorkly_sdk_key_secret_version.arn}`
 * AWS secret name: `${aws_secretsmanager_secret.dorkly_sdk_key_secret.name}`
 * AWS: Get secret via cli: `aws secretsmanager get-secret-value --secret-id ${aws_secretsmanager_secret.dorkly_sdk_key_secret.name}  | jq -r .SecretString`
 
 ### Mobile Key
-* Mobile Key value: `${local.mobile_key_display}`
+* Mobile Key value: `${aws_secretsmanager_secret_version.dorkly_mobile_key_secret_version.secret_string}`
 * Aws secret arn: `${aws_secretsmanager_secret_version.dorkly_mobile_key_secret_version.arn}`
 * Aws secret name: `${aws_secretsmanager_secret.dorkly_mobile_key_secret.name}`
 * Get secret using aws cli: `aws secretsmanager get-secret-value --secret-id ${aws_secretsmanager_secret.dorkly_mobile_key_secret.name}  | jq -r .SecretString`

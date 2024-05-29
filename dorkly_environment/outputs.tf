@@ -13,10 +13,9 @@ output "env" {
     "aws_secret_mobile_key_value" : aws_secretsmanager_secret_version.dorkly_mobile_key_secret_version.secret_string,
 
     "markdown_summary" : <<EOF
-### Environment: ${var.env.name}
+### ${var.env.name}
 * [Flag configs and more info](project/environments/${var.env.name})
 * Description: ${var.env.description}
-* Is Production? ${var.env.isProduction}
 EOF
     }
   )
