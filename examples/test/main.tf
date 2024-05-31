@@ -31,7 +31,7 @@ module "dorkly-flags-example" {
   project_name       = "example-test"
   ld_relay_log_level = "debug"
 
-  #  github_repo_private = false # for demo purposes set this to true
+  github_repo_private = false
 }
 
 output "ld_sdk_endpoint" {

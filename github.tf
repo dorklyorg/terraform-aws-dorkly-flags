@@ -4,10 +4,23 @@ locals {
 }
 
 resource "github_repository" "dorkly_repo" {
-  name        = "dorkly-flags-${var.project_name}"
-  description = var.github_repo_description
-  visibility  = var.github_repo_private ? "private" : "public"
-  auto_init   = true
+  name                   = "dorkly-flags-${var.project_name}"
+  description            = var.github_repo_description
+  visibility             = var.github_repo_private ? "private" : "public"
+  auto_init              = true
+  has_issues             = false
+  delete_branch_on_merge = true
+}
+
+resource "github_branch_protection" "main_branch_protection" {
+  repository_id           = github_repository.dorkly_repo.id
+  pattern                 = "main"
+  required_linear_history = true
+
+  enforce_admins = false
+  required_pull_request_reviews {
+    dismiss_stale_reviews = true
+  }
 }
 
 resource "github_actions_variable" "aws_region" {
