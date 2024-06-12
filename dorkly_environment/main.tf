@@ -69,44 +69,92 @@ resource "github_repository_file" "dorkly_flags_readme" {
   repository          = var.github_repo
   file                = "project/environments/${var.env.name}/README.md"
   content             = <<EOF
-# Dorkly Flags for project: ${var.project_name} environment: ${var.env.name}
-### This file is managed by terraform. Do not edit manually.
+# Dorkly Flags for `${var.project_name}` project, `${var.env.name}` environment
 
-## Description for ${var.env.name} environment
-${var.env.description}
+> [!WARNING]
+> This file is managed by terraform. Do not edit manually.
+
+## `${var.env.name}` environment description
+
+> ${var.env.description}
 
 ## Quick Start
-### Configuring a backend SDK
-Check out the LaunchDarkly [hello-go example](https://github.com/launchdarkly/hello-go) and modify the config as follows:
 
-```golang
-    dorklyConfig := ld.Config{
-		ServiceEndpoints: ldcomponents.RelayProxyEndpoints("${var.ld_sdk_endpoint}"),
-		Events:           ldcomponents.NoEvents(),
-	}
+If you're reading this, your organization's Dorkly server should now be available for serving feature flags to your code.
+To use those flags, ensure that:
+- The correct LaunchDarkly SDK has been added to your application
+- The SDK is configured to use your Dorkly server
 
-	ldClient, err := ld.MakeCustomClient("${aws_secretsmanager_secret_version.dorkly_sdk_key_secret_version.secret_string}", dorklyConfig, 10*time.Second)
+### Adding an SDK to your application
+
+We recommend following the [LaunchDarkly SDK documentation](https://docs.launchdarkly.com/sdk/). In particular:
+
+1. Read [Getting started with SDKs](https://docs.launchdarkly.com/sdk/concepts/getting-started)
+1. Choose the [server-side SDK](https://docs.launchdarkly.com/sdk/server-side) or [client-side SDK](https://docs.launchdarkly.com/sdk/client-side) most suitable for your application
+1. Follow the instructions to install the SDK and add it to your application
+1. To implement the section of the instructions entitled **Initialize the client**, you'll need a [key](https://docs.launchdarkly.com/sdk/concepts/client-side-server-side#keys). Continue to the next section.
+
+### Use the correct key
+
+Server-side SDKs should use this SDK Key:
+
+```
+${aws_secretsmanager_secret_version.dorkly_sdk_key_secret_version.secret_string}
 ```
 
-### Configuring a frontend SDK
-Check out the LaunchDarkly [hello-js example](https://github.com/launchdarkly/hello-js) and modify the config as follows:
-```javascript
-      // Set clientSideID to your environment name
-      const clientSideID = '${var.env.name}';
-
-      // Set up the evaluation context.
-      const context = {
-        kind: 'user',
-        key: 'example-user-key',
-      };
-
-      const options = {
-        baseUrl: '${var.ld_sdk_endpoint}'
-        streamUrl: '${var.ld_sdk_endpoint}',
-        sendEvents: false, };
-
-      const ldclient = LDClient.initialize(clientSideID, context, options);
+Client-side SDKs should use this client-side id:
 ```
+${var.env.name}
+```
+
+
+### Configuring the SDK to use your Dorkly server
+
+Please follow the LaunchDarkly documentation for [configuring SDKs to use a Relay Proxy](https://docs.launchdarkly.com/sdk/features/relay-proxy-configuration/proxy-mode).
+
+Find the SDK-specific section for your SDK; it'll contain a code sample in which one or more endpoint URLs are specified. Copy and use this code sample, setting **all** the URLs to:
+```
+${var.ld_sdk_endpoint}
+```
+
+- <details>
+  <summary>Example: Configuring a server-side SDK</summary>
+
+  Check out the LaunchDarkly [hello-go example](https://github.com/launchdarkly/hello-go) and modify the config as follows:
+
+  ```golang
+      dorklyConfig := ld.Config{
+          ServiceEndpoints: ldcomponents.RelayProxyEndpoints("${var.ld_sdk_endpoint}"),
+      }
+
+      ldClient, err := ld.MakeCustomClient("${aws_secretsmanager_secret_version.dorkly_sdk_key_secret_version.secret_string}", dorklyConfig, 10*time.Second)
+  ```
+  </details>
+
+- <details>
+  <summary>Example: Configuring a client-side SDK</summary>
+
+  Check out the LaunchDarkly [hello-js example](https://github.com/launchdarkly/hello-js) and modify the config as follows:
+
+  ```javascript
+        // Set clientSideID to your environment name
+        const clientSideID = '${var.env.name}';
+
+        // Set up the evaluation context.
+        const context = {
+          kind: 'user',
+          key: 'example-user-key',
+        };
+
+        const options = {
+          baseUrl: '${var.ld_sdk_endpoint}',
+          streamUrl: '${var.ld_sdk_endpoint}',
+          eventsUrl: '${var.ld_sdk_endpoint}',
+        };
+
+        const ldclient = LDClient.initialize(clientSideID, context, options);
+  ```
+  </details>
 
 ## Other handy bits
 All values below and others are available as terraform outputs for easy wiring into your app.

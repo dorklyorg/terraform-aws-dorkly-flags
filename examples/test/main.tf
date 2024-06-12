@@ -26,7 +26,7 @@ provider "github" {
 module "dorkly-flags-example" {
   source                  = "../../../terraform-aws-dorkly-flags"
   dorkly_docker_image_tag = "0.0.4"
-  dorkly_version          = "v0.0.7"
+  dorkly_version          = "v0.0.10"
 
   project_name       = "example-test"
   ld_relay_log_level = "debug"

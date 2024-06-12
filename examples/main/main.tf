@@ -24,10 +24,13 @@ provider "github" {
 }
 
 module "dorkly-flags-example" {
-  source       = "git::git@github.com:dorklyorg/terraform-aws-dorkly-flags.git//?ref=v0.0.8"
+  source  = "dorklyorg/dorkly-flags/aws"
+  # Latest version found here: https://registry.terraform.io/modules/dorklyorg/dorkly-flags/aws/latest
+  version = "0.0.8"
+
   project_name = "example"
 
-  # for demo purposes only. You should probably set this to true.
+  # for public demo purposes only. You should probably set this to true.
   github_repo_private = false
 }
 
