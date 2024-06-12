@@ -28,7 +28,7 @@ module "dorkly-flags-example" {
   dorkly_docker_image_tag = "0.0.4"
   dorkly_version          = "v0.0.10"
 
-  project_name       = "example-test"
+  project_name        = "example-test"
   project_description = "Project for manual testing of all dorkly components."
 
   ld_relay_log_level = "debug"
