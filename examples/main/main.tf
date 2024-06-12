@@ -24,7 +24,7 @@ provider "github" {
 }
 
 module "dorkly-flags-example" {
-  source  = "dorklyorg/dorkly-flags/aws"
+  source = "dorklyorg/dorkly-flags/aws"
   # Latest version found here: https://registry.terraform.io/modules/dorklyorg/dorkly-flags/aws/latest
   version = "0.0.8"
 
