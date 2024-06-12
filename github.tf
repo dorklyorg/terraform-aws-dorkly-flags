@@ -79,9 +79,17 @@ resource "github_repository_file" "dorkly_flags_readme" {
   repository          = github_repository.dorkly_repo.name
   file                = "README.md"
   content             = <<EOF
-# Dorkly Flags for project: ${var.project_name}
-### This file is managed by terraform. Do not edit manually.
-[Documentation](https://github.com/dorklyorg)
+# Dorkly Flags for project: `${var.project_name}`
+> [!WARNING]
+> This file is managed by terraform. Do not edit manually.
+
+## `${var.project_name}` project description
+
+> ${var.project_description}
+
+
+[Documentation](https://github.com/dorklyorg/dorkly/wiki)
+
 
 Dorkly endpoint for this environment: `${aws_lightsail_container_service.dorkly.url}`
 

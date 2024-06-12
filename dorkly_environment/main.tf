@@ -80,7 +80,7 @@ resource "github_repository_file" "dorkly_flags_readme" {
 
 ## Quick Start
 
-If you're reading this, your organization's Dorkly server should now be available for serving feature flags to your code.
+If you're reading this, your organization's [Dorkly](https://github.com/dorklyorg/dorkly/wiki) server should now be available for serving feature flags to your code.
 To use those flags, ensure that:
 - The correct LaunchDarkly SDK has been added to your application
 - The SDK is configured to use your Dorkly server

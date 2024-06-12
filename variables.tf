@@ -67,7 +67,7 @@ variable "dorkly_docker_image_tag" {
 
 variable "dorkly_version" {
   type        = string
-  default     = "v0.0.9" # latest releases: https://github.com/dorklyorg/dorkly/releases
+  default     = "v0.0.10" # latest releases: https://github.com/dorklyorg/dorkly/releases
   description = "The version of the dorkly binary to use. This can be any valid git tag, branch, or commit hash from https://github.com/dorklyorg/dorkly"
 }
 

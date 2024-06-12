@@ -29,6 +29,8 @@ module "dorkly-flags-example" {
   dorkly_version          = "v0.0.10"
 
   project_name       = "example-test"
+  project_description = "Project for manual testing of all dorkly components."
+
   ld_relay_log_level = "debug"
 
   github_repo_private = false
