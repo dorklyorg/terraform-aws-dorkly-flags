@@ -17,6 +17,7 @@ concurrency:
 
 env:
   DORKLY_S3_BUCKET: ${{ vars.AWS_S3_BUCKET }}
+  DORKLY_ENDPOINT: ${{ vars.DORKLY_ENDPOINT }}
 
 jobs:
   build:

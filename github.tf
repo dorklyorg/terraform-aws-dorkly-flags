@@ -41,6 +41,12 @@ resource "github_actions_variable" "dorkly_version" {
   value         = var.dorkly_version
 }
 
+resource "github_actions_variable" "dorkly_endpoint" {
+  repository    = github_repository.dorkly_repo.name
+  variable_name = "DORKLY_ENDPOINT"
+  value         = aws_lightsail_container_service.dorkly.url
+}
+
 resource "github_actions_secret" "aws_access_key_id" {
   repository      = github_repository.dorkly_repo.name
   secret_name     = "AWS_ACCESS_KEY_ID"
