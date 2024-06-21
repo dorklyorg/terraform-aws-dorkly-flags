@@ -19,10 +19,6 @@ output "aws_s3_bucket_name" {
   value = aws_s3_bucket.dorkly_bucket.bucket
 }
 
-output "aws_sqs_queue_url" {
-  value = aws_sqs_queue.dorkly_queue.url
-}
-
 output "aws_lightsail_container_service_name" {
   value = aws_lightsail_container_service.dorkly.name
 }

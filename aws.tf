@@ -24,10 +24,8 @@ resource "aws_lightsail_container_service_deployment_version" "dorkly" {
     command = []
 
     environment = {
-      AWS_REGION    = data.aws_region.current.name
-      SQS_QUEUE_URL = aws_sqs_queue.dorkly_queue.url
-      S3_URL        = "s3://${aws_s3_bucket.dorkly_bucket.bucket}/flags.tar.gz"
-      LOG_LEVEL     = var.ld_relay_log_level
+      S3_BUCKET     = aws_s3_bucket.dorkly_bucket.bucket
+      LOG_LEVEL = var.ld_relay_log_level
 
       # TODO: can we use role permissions instead of access keys?
       AWS_ACCESS_KEY_ID     = aws_iam_access_key.dorkly_read_user_access_key.id
@@ -56,55 +54,13 @@ resource "aws_lightsail_container_service_deployment_version" "dorkly" {
   service_name = aws_lightsail_container_service.dorkly.name
 }
 
-# SQS Queue
-resource "aws_sqs_queue" "dorkly_queue" {
-  name = local.name
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Principal = {
-          Service = "s3.amazonaws.com"
-        }
-        Action = [
-          "SQS:SendMessage"
-        ]
-        Resource = [
-          "arn:aws:sqs:*:*:${local.name}"
-        ],
-        Condition = {
-          ArnEquals = {
-            "aws:SourceArn" = aws_s3_bucket.dorkly_bucket.arn
-          }
-        }
-      }
-    ]
-  })
-  tags = local.tags
-}
-
 # S3 Bucket
 resource "aws_s3_bucket" "dorkly_bucket" {
   bucket = local.name
   tags   = local.tags
 }
 
-# S3 Bucket Notification
-resource "aws_s3_bucket_notification" "dorkly_bucket_notification" {
-  bucket = aws_s3_bucket.dorkly_bucket.id
-
-  queue {
-    queue_arn = aws_sqs_queue.dorkly_queue.arn
-    events    = ["s3:ObjectCreated:*"]
-  }
-
-  depends_on = [
-    aws_sqs_queue.dorkly_queue
-  ]
-}
-
-# IAM User for reading SQS queue and reading S3 bucket
+# IAM User for reading S3 bucket
 resource "aws_iam_user" "dorkly_read_user" {
   name = "${local.name}-read"
   tags = local.tags
@@ -125,13 +81,9 @@ resource "aws_iam_user_policy" "dorkly_read_user_policy" {
         Effect = "Allow"
         Action = [
           "s3:GetObject",
-          "sqs:ReceiveMessage",
-          "sqs:DeleteMessage",
-          "sqs:GetQueueAttributes"
         ]
         Resource = [
           "${aws_s3_bucket.dorkly_bucket.arn}/*",
-          aws_sqs_queue.dorkly_queue.arn
         ]
       }
     ]
