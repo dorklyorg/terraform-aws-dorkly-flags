@@ -24,7 +24,7 @@ resource "aws_lightsail_container_service_deployment_version" "dorkly" {
     command = []
 
     environment = {
-      S3_BUCKET     = aws_s3_bucket.dorkly_bucket.bucket
+      S3_BUCKET = aws_s3_bucket.dorkly_bucket.bucket
       LOG_LEVEL = var.ld_relay_log_level
 
       # TODO: can we use role permissions instead of access keys?
