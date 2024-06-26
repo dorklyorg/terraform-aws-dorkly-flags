@@ -28,10 +28,10 @@ module "dorkly-flags-example" {
   # Latest version found here: https://registry.terraform.io/modules/dorklyorg/dorkly-flags/aws/latest
   version = "0.6.0"
 
-  project_name        = "example"
+  project_name = "example"
   project_description = "Public demo project for documentation purposes."
 
-# for public demo purposes only. You should probably set this to true.
+  # for public demo purposes only. You should probably set this to true.
   github_repo_private = false
 }
 
