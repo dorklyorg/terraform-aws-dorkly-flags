@@ -1,2 +1,4 @@
-# Managed by Terraform! Do not edit. Any changed made by humans will be overwritten.
+# Managed by Terraform! Any changed made by humans will be overwritten next time you apply Terraform!
+# Feel free to edit this file as you test drive the service, but don't be surprised if your changes are lost after a Terraform apply.
+# To create a new flag not managed by Terraform: https://github.com/dorklyorg/dorkly/wiki/3.-Common-Tasks#adding-a-feature-flag
 variation: false
