@@ -26,7 +26,7 @@ provider "github" {
 module "dorkly-flags-example" {
   source = "dorklyorg/dorkly-flags/aws"
   # Latest version found here: https://registry.terraform.io/modules/dorklyorg/dorkly-flags/aws/latest
-  version = "0.6.0"
+  version = "0.7.0"
 
   project_name        = "example"
   project_description = "Public demo project for documentation purposes."
