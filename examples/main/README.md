@@ -1,6 +1,6 @@
 ## terraform-aws-dorkly-flags example
 Requirements:
-1. AWS credentials with permissions to create S3 buckets, Lightsail containers, SQS queues, and IAM roles (and maybe more)
+1. AWS credentials with permissions to create S3 buckets, Lightsail containers, and IAM roles (and maybe more)
 2. Github token with permissions to create repos, secrets, and actions.
 3. Terraform installed on your machine.
 
